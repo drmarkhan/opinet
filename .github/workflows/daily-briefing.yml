@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
+          git add data/ docs/
           if git diff --cached --quiet; then
             echo "저장할 변경이 없습니다."
           else
@@ -60,7 +60,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: opinet-map-${{ github.run_id }}
-          path: reports/*.html
+          path: docs/index.html
           if-no-files-found: ignore
           retention-days: 30
 
