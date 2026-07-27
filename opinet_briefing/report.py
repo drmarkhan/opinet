@@ -41,6 +41,9 @@ def build_message(snapshot: dict[str, Any]) -> str:
                     key=lambda item: (item["rank"], item["distance_m"]),
                 )
                 if not records:
+                    lines.append(
+                        f"  └ {radius['radius_m']//1000}km TOP5: 가격 자료 없음"
+                    )
                     continue
                 competitors = []
                 for item in records[:5]:
@@ -103,11 +106,14 @@ def build_map(snapshot: dict[str, Any], output_path: Path) -> None:
                         continue
                     seen.add(key)
                     change = delta_text(item.get("delta"))
+                    owned_text = "운영 주유소" if item.get("is_target") else "경쟁 주유소"
+                    highlight_text = " · ⚠️ 강조" if item.get("highlight") else ""
                     popup = (
                         f"<b>{html.escape(item['name'])}</b><br>"
                         f"{product['product_name']} {item['rank']}위 · "
                         f"{item['price']:,}원<br>"
-                        f"직선거리 {item['distance_m']:.0f}m · 전일 {change}"
+                        f"직선거리 {item['distance_m']:.0f}m · 전일 {change}<br>"
+                        f"{owned_text}{highlight_text}"
                     )
                     folium.CircleMarker(
                         [item["latitude"], item["longitude"]],
