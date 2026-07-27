@@ -13,7 +13,8 @@
 - 오피넷 Open API는 휘발유·경유·실내등유 가격을 제공합니다.
 - **세차비는 오피넷에서 제공하지 않습니다.** `config/carwash_prices.yml`에
   직접 확인한 가격을 입력해야 순위와 전일 변동이 계산됩니다.
-- HTML 보고서에는 지도와 1·3·5km 상세 테이블이 함께 들어갑니다.
+- HTML 보고서에는 지도와 1·3·5km 상세 테이블이 함께 들어가며, GitHub Pages로
+  공개됩니다: **https://drmarkhan.github.io/opinet/**
 
 ## 설정된 운영 주유소
 
@@ -51,11 +52,20 @@
 
 ## 2. GitHub에 올리기
 
-1. GitHub에서 새 **비공개(Private)** 저장소를 만듭니다.
+이 저장소는 **공개(Public)** 여야 합니다. 무료 GitHub 계정에서 GitHub Pages로
+지도를 공개하려면 저장소가 Public이어야 하기 때문입니다(Private 저장소의
+Pages는 유료 플랜에서만 가능). 가격을 바꾸는 기능이 없고 API 키도 코드에
+들어가지 않으므로 Public이어도 안전합니다.
+
+1. GitHub에서 새 **공개(Public)** 저장소를 만듭니다.
 2. 이 폴더의 파일 전체를 저장소 최상위에 올립니다.
 3. 저장소의 `Settings` → `Actions` → `General`로 이동합니다.
 4. `Workflow permissions`에서 `Read and write permissions`를 선택하고 저장합니다.
    이 권한은 전일 비교용 JSON을 저장소에 다시 기록하는 데 필요합니다.
+5. 저장소의 `Settings` → `Pages`로 이동해 `Source: Deploy from a branch`,
+   `Branch: main`, 폴더: `/docs`를 선택하고 저장합니다. (프로그램을 처음
+   실행해 `docs/index.html`이 생기기 전에는 이 화면에 폴더 선택지가 안 보일
+   수 있습니다. 4단계까지 마친 뒤 아래 순서대로 진행하면 됩니다.)
 
 명령줄을 쓸 경우:
 
@@ -92,19 +102,31 @@ Secret 이름은 대소문자까지 표와 정확히 같아야 합니다.
 
 ## 5. ChatGPT 오전 7시 30분 알림 연결
 
-GitHub Actions가 ChatGPT에 직접 알림을 보내는 공식 웹훅은 없습니다. 따라서
-다음 구조를 사용합니다.
+GitHub Actions가 ChatGPT에 직접 알림을 보내는 공식 웹훅은 없습니다. 대신
+GitHub Actions는 **오전 7시 10분**까지 결과를 준비해 두고(ChatGPT 알림 20분
+전), ChatGPT의 예약 작업(Tasks) 기능이 오전 7시 30분에 그 결과를 읽어와
+알림으로 보내는 구조를 사용합니다. 저장소가 Public이므로 별도 연동 없이
+아래 URL을 그대로 읽을 수 있습니다.
 
-1. ChatGPT에서 GitHub 앱을 연결합니다.
-2. 이 비공개 저장소에 대한 읽기 권한을 허용합니다.
-3. ChatGPT에 아래처럼 요청합니다.
+- 요약 상태: `https://raw.githubusercontent.com/drmarkhan/opinet/main/data/status.json`
+- 상세 순위: `https://raw.githubusercontent.com/drmarkhan/opinet/main/data/latest.json`
+- 지도·전체 순위표: `https://drmarkhan.github.io/opinet/`
 
-   `매일 오전 7시 30분에 <소유자>/<저장소>의 data/status.json과
-   data/latest.json을 읽고 두 운영 주유소의 핵심 가격·순위·전일 변화·의견을
-   알려줘. status가 error이면 오류 메시지를 알려줘.`
+설정 순서:
 
-저장소를 실제로 만든 뒤 저장소 이름을 알려주면 이 예약 작업을 함께 설정할 수
-있습니다. 이 단계 전에는 ChatGPT가 비공개 저장소의 결과를 읽을 수 없습니다.
+1. ChatGPT 앱(또는 웹)에서 예약 작업(Tasks) 기능을 엽니다.
+2. "매일 오전 7시 30분(KST)"으로 반복 예약을 만듭니다.
+3. 아래 지시문을 등록합니다.
+
+   `https://raw.githubusercontent.com/drmarkhan/opinet/main/data/status.json
+   을 읽고 status 필드를 확인해. status가 "success"면 message 필드 내용을
+   그대로 알려줘. status가 "error"면 message 필드의 오류 내용을 알려줘.
+   메시지 끝의 지도 링크(https://drmarkhan.github.io/opinet/)도 함께
+   보여줘.`
+
+`message` 필드에는 두 운영 주유소의 유종별(휘발유·경유·등유·세차비) 가격,
+1·3·5km 경쟁 순위, 전일 대비 변화, 의견(유지/인하 검토/긴급 확인)이 모두
+포함되어 있습니다.
 
 ## 6. 세차비 입력하기
 
@@ -154,18 +176,20 @@ python -m opinet_briefing.main
 - `data/latest.json`: 가장 최근 실행 결과. 다음 실행 때 전일 비교 기준으로 사용
 - `data/status.json`: 성공 요약 또는 오류 메시지. ChatGPT 알림이 먼저 읽는 파일
 - `data/history/YYYY-MM-DD.json`: 날짜별 원본 결과
-- `reports/opinet-map-YYYY-MM-DD.html`: 인터랙티브 지도
+- `docs/index.html`: 인터랙티브 지도와 전체 순위표.
+  GitHub Pages로 https://drmarkhan.github.io/opinet/ 에 자동 공개됩니다.
 
 같은 날짜에 다시 실행하면 그 날짜의 JSON은 최신 실행 결과로 덮어씁니다.
-GitHub Actions는 JSON만 저장소에 커밋하고 지도는 텔레그램 전송 및 Actions
-artifact로 30일 보관합니다.
+GitHub Actions는 `data/`와 `docs/`를 저장소에 커밋하고, `docs/index.html`은
+Actions artifact로도 30일 보관합니다.
 
 ## 오류가 날 때
 
 - `401`, 인증 오류: `OPINET_API_KEY`가 맞는지와 API 권한을 확인합니다.
-- 텔레그램 `400 Bad Request`: 봇에 `/start`를 보냈는지, chat ID가 맞는지 확인합니다.
-- JSON 저장 `git push` 실패: Actions의 `Read and write permissions`를 확인합니다.
+- JSON·지도 저장 `git push` 실패: Actions의 `Read and write permissions`를 확인합니다.
 - 예약 실행이 안 됨: 저장소 Actions가 활성화되어 있는지 확인합니다.
+- 지도 주소가 404: `Settings` → `Pages`에서 `Branch: main` / 폴더 `/docs`로
+  지정돼 있는지, `docs/index.html`이 저장소에 커밋됐는지 확인합니다.
 
 프로그램 실행 중 오류가 나면 `data/status.json`에 오류 요약을 저장합니다.
 ChatGPT 예약 작업은 이 파일을 읽어 오류를 알립니다. 전체 내용은 GitHub
