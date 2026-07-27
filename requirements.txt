@@ -1,0 +1,5 @@
+folium==0.20.0
+pyproj==3.7.2
+PyYAML==6.0.3
+requests==2.32.5
+

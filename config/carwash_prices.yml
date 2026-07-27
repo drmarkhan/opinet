@@ -1,0 +1,22 @@
+# 오피넷은 세차 요금을 제공하지 않습니다.
+# 확인한 요금을 아래에 입력하면 유류와 동일하게 반경별 순위/전일 변동을 계산합니다.
+# key는 임의의 고정 ID입니다. 가격 미확인 항목은 null로 두십시오.
+stations:
+  geolpo:
+    name: "알뜰 걸포주유소"
+    latitude: 37.6459844
+    longitude: 126.7066566
+    price: null
+  uturn:
+    name: "유턴주유소"
+    latitude: 37.5571490
+    longitude: 126.8098880
+    price: null
+
+# 경쟁 주유소 세차비 입력 예시:
+#  competitor_example:
+#    name: "경쟁주유소"
+#    latitude: 37.6000000
+#    longitude: 126.8000000
+#    price: 5000
+

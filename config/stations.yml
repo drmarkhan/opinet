@@ -1,0 +1,41 @@
+stations:
+  - id: geolpo
+    name: "알뜰 걸포주유소"
+    aliases:
+      - "걸포주유소"
+      - "(주)한솔도시개발 직영 걸포주유소"
+    address: "경기 김포시 금포로 1117-6"
+    latitude: 37.6459844
+    longitude: 126.7066566
+    match_radius_m: 250
+
+  - id: uturn
+    name: "유턴주유소"
+    aliases:
+      - "유턴상사 유턴주유소"
+      - "(주)유턴상사 유턴주유소"
+      - "국제공항주유소"
+    address: "서울 강서구 남부순환로 57"
+    latitude: 37.5571490
+    longitude: 126.8098880
+    match_radius_m: 250
+
+radii_m: [1000, 3000, 5000]
+
+products:
+  gasoline:
+    name: "휘발유"
+    opinet_code: "B027"
+  diesel:
+    name: "경유"
+    opinet_code: "D047"
+  kerosene:
+    name: "등유"
+    opinet_code: "C004"
+
+rules:
+  highlight_change_won: 3
+  urgent_gap_won: 10
+  review_gap_won: 3
+  target_match_radius_m: 250
+
