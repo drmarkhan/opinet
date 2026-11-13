@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "generated_at_kst": "2026-11-13T11:34:39+09:00",
+  "date_kst": "2026-11-13",
+  "alerts": [],
+  "sites": [
+    {
+      "site_id": "geolpo",
+      "site_name": "알뜰 걸포주유소",
+      "address": "경기 김포시 금포로 1117-6",
+      "latitude": 37.6459844,
+      "longitude": 126.7066566,
+      "products": [
+        {
+          "product_key": "gasoline",
+          "product_name": "휘발유",
+          "source": "opinet",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        },
+        {
+          "product_key": "diesel",
+          "product_name": "경유",
+          "source": "opinet",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        },
+        {
+          "product_key": "kerosene",
+          "product_name": "등유",
+          "source": "opinet",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        },
+        {
+          "product_key": "carwash",
+          "product_name": "세차비",
+          "source": "manual",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        }
+      ]
+    },
+    {
+      "site_id": "uturn",
+      "site_name": "유턴주유소",
+      "address": "서울 강서구 남부순환로 57",
+      "latitude": 37.557149,
+      "longitude": 126.809888,
+      "products": [
+        {
+          "product_key": "gasoline",
+          "product_name": "휘발유",
+          "source": "opinet",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        },
+        {
+          "product_key": "diesel",
+          "product_name": "경유",
+          "source": "opinet",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        },
+        {
+          "product_key": "kerosene",
+          "product_name": "등유",
+          "source": "opinet",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        },
+        {
+          "product_key": "carwash",
+          "product_name": "세차비",
+          "source": "manual",
+          "radii": [
+            {
+              "radius_m": 1000,
+              "records": []
+            },
+            {
+              "radius_m": 3000,
+              "records": []
+            },
+            {
+              "radius_m": 5000,
+              "records": []
+            }
+          ],
+          "target_5km": null,
+          "gap_to_lowest_won": null,
+          "opinion": "긴급 확인"
+        }
+      ]
+    }
+  ]
+}
